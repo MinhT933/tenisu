@@ -1,34 +1,43 @@
 import "./productList.css";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
-import { productRows } from "../../../dummyData";
-// import { Link } from "react-router-dom";
-import { useState } from "react";
+import * as React from "react";
 import Topbar from "../../../components/topbar/Topbar";
 import Sidebar from "../../../components/sidebar/Sidebar";
+import { GetListCour } from "../../../module/action/action";
+import { useDispatch, useSelector } from "react-redux";
+
 
 export default function ProductList() {
-  const [data, setData] = useState(productRows);
+  
+  const dispatch = useDispatch();
 
-  const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
-  };
+  React.useEffect(() => {
+    const callAPI = async () => {
+      await dispatch(GetListCour());
+    };
+    callAPI();
+  }, []);
+
+  const courtowners = useSelector((state) => {
+    return state.userReducer.listCO;
+  });
+  console.log(courtowners);
 
   const columns = [
     {
       field: "email",
-      headerName: "Owner ID",
+      headerName: "fullName",
       width: 200,
       renderCell: (params) => {
         return (
           <div className="productListItem">
-            <img className="productListImg" src={params.row.img} alt="" />
-            {params.row.name}
+            {params.row.fullName}
           </div>
         );
       },
     },
-    { field: "fullname", headerName: "Owner Name", width: 200 },
+  
     {
       field: "phone",
       headerName: "Phone",
@@ -48,6 +57,9 @@ export default function ProductList() {
       field: "gender",
       headerName: "Gender",
       width: 160,
+      renderCell: (params) => {
+        return <div className="userListUser">{params.row.gender === true ? "male" : "famale"}</div>;
+      },
     },
     {
       field: "action",
@@ -58,7 +70,6 @@ export default function ProductList() {
           <>
             <DeleteOutline
               className="productListDelete"
-              onClick={() => handleDelete(params.row.id)}
             />
           </>
         );
@@ -72,13 +83,19 @@ export default function ProductList() {
       <div className="container">
         <Sidebar />
         <div className="productList">
-          <DataGrid
-            rows={data}
+          {courtowners &&<DataGrid
+            rows={courtowners}
+            getRowId= {(rows) => rows.email}
             disableSelectionOnClick
             columns={columns}
             pageSize={8}
             checkboxSelection
-          />
+            onCellDoubleClick={(params, event) => {
+              if (!event.ctrlKey) {
+                event.isDefaultMuiPrevented = true;
+              }
+            }}
+          />}
         </div>
       </div>
     </>

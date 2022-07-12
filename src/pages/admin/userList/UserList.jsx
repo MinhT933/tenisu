@@ -1,15 +1,13 @@
 import "./userList.css";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
-// import { userRows } from "../../../dummyData";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import Topbar from "../../../components/topbar/Topbar";
 import Sidebar from "../../../components/sidebar/Sidebar";
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { callAPIGetListUser } from "../../../module/action/action";
-import axios from "axios";
+
 
 export default function UserList(props) {
   // const [open, setOpen] = React.useState(false);
@@ -94,7 +92,6 @@ export default function UserList(props) {
           <>
             <Link to={"/admin/user/" + params.row.email}>
               <button className="userListEdit">Edit</button>
-          
             </Link>
             <DeleteOutline
               className="userListDelete"
@@ -105,9 +102,6 @@ export default function UserList(props) {
       },
     },
   ];
-
- 
-
   return (
     <>
       <Topbar />
@@ -131,7 +125,6 @@ export default function UserList(props) {
           }
         </div>
       </div>
-     
     </>
   );
 }

@@ -7,23 +7,14 @@ import { userRows } from "../../../dummyData";
 import { useState } from "react";
 import Topbar from "../../../components/topbar/Topbar";
 import SidebarOwner from "../../../components/sideBarOwner/SideBarOwner";
-import { callAPIGetListCour } from "../../../module/action/action";
 
 export default function CourtList() {
-    // const [data, setData] = useState(userRows);
-   
+    const [data, setData] = useState(userRows);
 
-    React.useEffect(() => {
-      const callAPI = async () => {
-        await dispatch(callAPIGetListCour);
-      };
-      callAPI();
-    }, []);
-
-    
-    const co = useSelector((state) => {
-      return state.userReducer.ListCo;
-    });
+    const handleDelete = (id) => {
+      setData(data.filter((item) => item.id !== id));
+    };
+  
     const columns = [
       {
         field: "email",
@@ -32,7 +23,6 @@ export default function CourtList() {
         renderCell: (params) => {
           return (
             <div className="productListItem">
-              
               {params.row.name}
             </div>
           );

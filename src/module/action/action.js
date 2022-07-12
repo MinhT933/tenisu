@@ -46,7 +46,7 @@ export const updateUser  = (user, email) => {
 }
 
 
-export const callAPIGetListCour = () => {
+export const GetListCour = () => {
   return async (dispatch) => {
     try {
       const res = await API(
@@ -59,8 +59,10 @@ export const callAPIGetListCour = () => {
           payload: res.data.data,
         })
       );
+      console.log(res.data.data);
     } catch (error) {
       console.log({ ...error });
     }
+    
   };
 };

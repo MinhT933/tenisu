@@ -11,6 +11,7 @@ import OwnerHome from '../pages/owner/ownerHome/Home'
 import CreateCourt from '../pages/owner/ownerCreateCourt/ownerCreate';
 import CourtList from '../pages/owner/ownerCourt/court';
 import Customer from '../pages/owner/customer/customer';
+import LoginCO from '../pages/Login/loginCO';
 // layouts
 
 // ----------------------------------------------------------------------
@@ -22,6 +23,8 @@ export default function Router() {
     //   element: <Login />,
       children: [
         { path: '', element: <Login /> },
+        { path: 'loginRoleAD', element: <Login /> },
+        {path:'loginRoleCO',element: <LoginCO/>},
         { path: 'owner', element: <OwnerHome /> },
         { path: 'owner/createCourt', element: <CreateCourt /> },
         { path: 'owner/court', element: <CourtList /> },
