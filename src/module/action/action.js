@@ -66,3 +66,23 @@ export const GetListCour = () => {
     
   };
 };
+
+
+export const callAPIGetListCourtOwner = () => {
+  return async (dispatch) => {
+    try {
+      const res = await API(
+        "GET",
+        "http://www.tennisv2.somee.com/api/v1.0/TennisCourts?page=1"
+      );
+      dispatch(
+        createAction({
+          type: ActionType.GET_COURT_OWNER,
+          payload: res.data.data,
+        })
+      );
+    } catch (error) {
+      console.log({ ...error });
+    }
+  };
+};
