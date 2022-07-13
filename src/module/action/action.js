@@ -11,8 +11,8 @@ export const createAction = ({ type, payload }) => {
 };
 
 const userUpdate = () => {
-  return{
-    type:ActionType.UPDATE_USER,
+  return {
+    type: ActionType.UPDATE_USER,
   };
 };
 
@@ -35,16 +35,18 @@ export const callAPIGetListUser = () => {
   };
 };
 
-export const updateUser  = (user, email) => {
+export const updateUser = (user, email) => {
   return (dispatch) => {
-    axios.put(`http://www.tennisv2.somee.com/api/v1.0/Customers/${email}`,user)
-    .then((res) => { 
+    axios
+      .put(`http://www.tennisv2.somee.com/api/v1.0/Customers/${email}`, user)
+      .then((res) => {
         dispatch(userUpdate());
       })
-    .catch((err) => { console.log(err); })
-  }
-}
-
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
 
 export const GetListCour = () => {
   return async (dispatch) => {
@@ -63,21 +65,39 @@ export const GetListCour = () => {
     } catch (error) {
       console.log({ ...error });
     }
-    
   };
 };
 
-
-export const callAPIGetListCourtOwner = () => {
+export const callAPIGetCourtOwner = () => {
   return async (dispatch) => {
     try {
+      const email = JSON.parse(localStorage.getItem("account")).username;
       const res = await API(
         "GET",
-        "http://www.tennisv2.somee.com/api/v1.0/TennisCourts?page=1"
+        `http://www.tennisv2.somee.com/api/v1.0/TennisCourts/SearchByOwnerId?search=${email}`
       );
       dispatch(
         createAction({
           type: ActionType.GET_COURT_OWNER,
+          payload: res.data.data,
+        })
+      );
+    } catch (error) {
+      console.log({ ...error });
+    }
+  };
+};
+
+export const actionCreateCourt = () => {
+  return async (dispatch) => {
+    try {
+      const res = await API(
+        "POST",
+        "http://www.tennisv2.somee.com/api/v1.0/TennisCourts?page=1"
+      );
+      dispatch(
+        createAction({
+          type: ActionType.CREATE_COURT,
           payload: res.data.data,
         })
       );
