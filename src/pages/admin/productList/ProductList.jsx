@@ -6,10 +6,12 @@ import Topbar from "../../../components/topbar/Topbar";
 import Sidebar from "../../../components/sidebar/Sidebar";
 import { GetListCour } from "../../../module/action/action";
 import { useDispatch, useSelector } from "react-redux";
+import { Switch } from "@material-ui/core";
+
 
 
 export default function ProductList() {
-  
+  const label = { inputProps: { 'aria-label': 'Switch demo' } };
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -68,9 +70,7 @@ export default function ProductList() {
       renderCell: (params) => {
         return (
           <>
-            <DeleteOutline
-              className="productListDelete"
-            />
+            <Switch className="productListDelete" {...label} />
           </>
         );
       },
