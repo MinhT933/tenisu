@@ -2,7 +2,8 @@ import * as ActionType from "../constants/constants";
 const initialState = {
   user: {},
   listUser: [],
-  listCO:[]
+  listCO: [],
+  listCourtOwner: [],
 };
 
 // Use the initialState as a default value
@@ -15,6 +16,9 @@ export default function userReducer(state = initialState, { type, payload }) {
       break;
     case ActionType.GET_LIST_CO:
       state.listCO = payload;
+      break;
+    case ActionType.GET_COURT_OWNER:
+      state.listCourtOwner = payload;
       break;
     default:
       break;
