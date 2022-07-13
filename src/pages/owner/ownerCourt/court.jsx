@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Topbar from "../../../components/topbar/Topbar";
 import SidebarOwner from "../../../components/sideBarOwner/SideBarOwner";
-import { callAPIGetListCourtOwner } from "../../../module/action/action";
+import { callAPIGetCourtOwner } from "../../../module/action/action";
 
 export default function CourtList() {
   const [data, setData] = useState(userRows);
@@ -20,7 +20,7 @@ export default function CourtList() {
 
   React.useEffect(() => {
     const callAPI = async () => {
-      await dispatch(callAPIGetListCourtOwner());
+      await dispatch(callAPIGetCourtOwner());
     };
     callAPI();
   }, [dispatch]);
@@ -43,39 +43,34 @@ export default function CourtList() {
       field: "address",
       headerName: "Address",
       width: 160,
-      renderCell: (params)=>{
-        return <div >{params.row.address}</div>
-      }
+      renderCell: (params) => {
+        return <div>{params.row.address}</div>;
+      },
     },
     {
       field: "name",
       headerName: "Name",
       width: 200,
       renderCell: (params) => {
-        return (
-          <div className="productListItem">
-            {params.row.name}
-            
-          </div>
-        );
+        return <div className="productListItem">{params.row.name}</div>;
       },
     },
     {
       field: "price",
       headerName: "Price",
       width: 120,
-      renderCell: (params)=>{
-        return <div >{params.row.price}</div>
-      }
+      renderCell: (params) => {
+        return <div>{params.row.price}</div>;
+      },
     },
- 
+
     {
       field: "ownerId",
       headerName: "Owner ID",
       width: 160,
-      renderCell: (params)=>{
-        return <div >{params.row.ownerId}</div>
-      }
+      renderCell: (params) => {
+        return <div>{params.row.ownerId}</div>;
+      },
     },
     {
       field: "group",

@@ -1,41 +1,12 @@
-
 import Switch from "@material-ui/core/Switch";
 import { Button } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
-import { useNavigate,Link } from "react-router-dom";
-import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
 import "./login.css";
+import API from "../../Axios/API";
 
-async function LoginAcc( username , password, navigate) {
-  //  const [username , setUserName] =useState("");
-  //  const [password , setPassword] =useState("");
-   //call api login 
-   let data = {username, password};
-   let result = await axios.post("http://www.tennisv2.somee.com/api/v1.0/User/Login",data);
-   console.log("results"+ result);
-   navigate("/owner");
-
-
-    // axios.post('http://www.tenisuu.somee.com/api/v1.0/User/Login',{
-    //   username: username,
-    //   password: password
-    // }).then(user => {
-
-    //   this.setState({ 
-    //     initialState,
-    //     submit: true
-    //   });
-    //   this.setState({ loading: false});
-    //   console.log('User Login', user)
-    // }).catch((response) => {
-    //   // ? Show to user that request is failed
-    //   this.setState({ errors:[response ]})
-    //   this.setState({ loading: false });
-    //   console.log('request failed', response)});
-    
-}
 
 const signInUserSchema = yup.object().shape({
   // email: yup
@@ -48,15 +19,18 @@ const signInUserSchema = yup.object().shape({
 const label = { inputProps: { "aria-label": "Switch demo" } };
 export default function LoginCO() {
   const navigate = useNavigate();
-  const handleLogIn = async (values, { resetForm }) => {
-    console.log(values);
+  const handleLogInCO = async (values, { resetForm }) => {
     try {
-      if (values.username === "admin") {
-        navigate("/admin");
-      } else if (values.username === "owner") {
-        navigate("/owner");
-      }
+      const res = await API(
+        "POST",
+        "http://www.tennisv2.somee.com/api/v1.0/User/Login",
+        values,
+        null
+      );
+      localStorage.setItem("account", JSON.stringify(values));
+      navigate("/owner");
     } catch (err) {
+      console.log({ ...err });
       // notifiError("Login Fail!");
     }
     resetForm({ values: "" });
@@ -75,7 +49,7 @@ export default function LoginCO() {
                 password: "",
               }}
               validationSchema={signInUserSchema}
-              onSubmit={handleLogIn}
+              onSubmit={handleLogInCO}
               render={(formilProps) => (
                 <Form>
                   <div className="input-group form-group">
@@ -122,19 +96,22 @@ export default function LoginCO() {
                       variant="contained"
                       sx={{ mb: "10px" }}
                       type="submit"
-                      onClick={()=>{
-                        LoginAcc(formilProps.values.username,formilProps.values.password,navigate)
-                      }}
+                      // onClick={()=>{
+                      //   LoginAcc(formilProps.values.username,formilProps.values.password,navigate)
+                      // }}
                     >
                       Login
                     </Button>
                     <Link to={"/loginRoleAD"}>
-                    <Button
-                      sx={{ backgroundColor: "white", color: "black", mb: "10px" }}
-                    >
-                      owner login
-
-                    </Button>
+                      <Button
+                        sx={{
+                          backgroundColor: "white",
+                          color: "black",
+                          mb: "10px",
+                        }}
+                      >
+                        owner login
+                      </Button>
                     </Link>
                   </Box>
                 </Form>

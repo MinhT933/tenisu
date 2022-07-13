@@ -1,11 +1,25 @@
 
 import SidebarOwner from "../../../components/sideBarOwner/SideBarOwner";
 import Topbar from "../../../components/topbar/Topbar";
-
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 
 import "./createCourt.css";
 
 export default function CreateCourt() {
+
+  const dispatch = useDispatch();
+  const {register, handleSummit, errors} = useForm({
+    mode: "onBlur"
+  })
+
+  const onSubmit = (data) =>{
+    let form = document.getElementById('AdminFormCreateCourt');
+    form.reset();
+
+
+  }
+
   return (
     <>
       <Topbar />
@@ -14,7 +28,9 @@ export default function CreateCourt() {
         <div className="productList">
           <div className="newProduct">
             <h1 className="addProductTitle">Create court</h1>
-            <form className="addProductForm">
+            <form className="addProductForm" id="AdminFormCreateCourt" 
+            // onSubmit={handleSummit(onSubmit)}
+            >
               <div className="addProductItem">
                 <label>Image</label>
                 <input type="file" id="file" />
