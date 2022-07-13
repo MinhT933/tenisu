@@ -68,7 +68,7 @@ export const GetListCour = () => {
 };
 
 
-export const callAPIGetListCourtOwner = () => {
+export const callAPIGetListCourtOwner  = () => {
   return async (dispatch) => {
     try {
       const res = await API(
