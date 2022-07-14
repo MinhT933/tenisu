@@ -24,8 +24,8 @@ export default function Router() {
       //   element: <Login />,
       children: [
         { path: "", element: <Login /> },
-        // { path: "loginRoleAD", element: <Login /> },
-        // { path: "loginRoleCO", element: <LoginCO /> },
+        { path: "loginRoleAD", element: <Login /> },
+        { path: "loginRoleCO", element: <LoginCO /> },
         { path: "owner", element: <OwnerHome /> },
         { path: "owner/createCourt", element: <CreateCourt /> },
         { path: "owner/court", element: <CourtList /> },
