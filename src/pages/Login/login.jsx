@@ -32,8 +32,8 @@ export default function Login() {
         navigate("/admin");
       } else if (res.data.data[0].roleId === "OC") {
         navigate("/owner");
-      } 
-      
+      }
+
 
     } catch (err) {
       console.log({ ...err });
@@ -42,73 +42,74 @@ export default function Login() {
     resetForm({ values: "" });
   };
   return (
-    <div className="loginstyle container">
-      <div className="d-flex justify-content-center h-100">
-        <div className="card">
-          <div className="card-header">
-            <h3>Login Your Account</h3>
-          </div>
-          <div className="card-body">
-            <Formik
-              initialValues={{
-                username: "",
-                password: "",
-              }}
-              validationSchema={signInUserSchema}
-              onSubmit={handleLogInCO}
-              render={(formilProps) => (
-                <Form>
-                  <div className="input-group form-group">
-                    <div className="input-group-prepend">
-                      <span className="input-group-text">
-                        <i className="fas fa-user" />
-                      </span>
+    
+      <div className="loginstyle container">
+        <div className="d-flex justify-content-center h-100">
+          <div className="card">
+            <div className="card-header">
+              <h3>Login Your Account</h3>
+            </div>
+            <div className="card-body">
+              <Formik
+                initialValues={{
+                  username: "",
+                  password: "",
+                }}
+                validationSchema={signInUserSchema}
+                onSubmit={handleLogInCO}
+                render={(formilProps) => (
+                  <Form>
+                    <div className="input-group form-group">
+                      <div className="input-group-prepend">
+                        <span className="input-group-text">
+                          <i className="fas fa-user" />
+                        </span>
+                      </div>
+                      <Field
+                        name="username"
+                        type="text"
+                        className="input"
+                        onChange={formilProps.handleChange}
+                      />
                     </div>
-                    <Field
-                      name="username"
-                      type="text"
-                      className="input"
-                      onChange={formilProps.handleChange}
-                    />
-                  </div>
-                  <ErrorMessage name="username">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
-                  </ErrorMessage>
-                  <div className="input-group form-group">
-                    <div className="input-group-prepend">
-                      <span className="input-group-text">
-                        <i className="fas fa-key" />
-                      </span>
+                    <ErrorMessage name="username">
+                      {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    </ErrorMessage>
+                    <div className="input-group form-group">
+                      <div className="input-group-prepend">
+                        <span className="input-group-text">
+                          <i className="fas fa-key" />
+                        </span>
+                      </div>
+                      <Field
+                        name="password"
+                        type="password"
+                        className="input"
+                        data-type="password"
+                        onChange={formilProps.handleChange}
+                      />
                     </div>
-                    <Field
-                      name="password"
-                      type="password"
-                      className="input"
-                      data-type="password"
-                      onChange={formilProps.handleChange}
-                    />
-                  </div>
-                  <ErrorMessage name="password">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
-                  </ErrorMessage>
+                    <ErrorMessage name="password">
+                      {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    </ErrorMessage>
 
-                  <div className="switch">
-                    <Switch {...label} defaultChecked />
-                    <p>Stay Signed in </p>
-                  </div>
+                    <div className="switch">
+                      <Switch {...label} defaultChecked />
+                      <p>Stay Signed in </p>
+                    </div>
 
-                  <Box sx={{ display: "flex", flexDirection: "column" }}>
-                    <Button
-                      variant="contained"
-                      sx={{ mb: "10px" }}
-                      type="submit"
+                    <Box sx={{ display: "flex", flexDirection: "column" }}>
+                      <Button
+                        variant="contained"
+                        sx={{ mb: "10px" }}
+                        type="submit"
                       // onClick={()=>{
                       //   LoginAcc(formilProps.values.username,formilProps.values.password,navigate)
                       // }}
-                    >
-                      Login
-                    </Button>
-                    {/* <Link to={"/loginRoleAD"}>
+                      >
+                        Login
+                      </Button>
+                      {/* <Link to={"/loginRoleAD"}>
                       <Button
                         sx={{
                           backgroundColor: "white",
@@ -119,13 +120,15 @@ export default function Login() {
                         owner login
                       </Button>
                     </Link> */}
-                  </Box>
-                </Form>
-              )}
-            />
+                    </Box>
+                  </Form>
+                )}
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    
+
   );
 }
