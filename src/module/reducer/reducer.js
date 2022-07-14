@@ -4,6 +4,7 @@ const initialState = {
   listUser: [],
   listCO: [],
   listCourtOwner: [],
+  listCourtBooking: [],
 };
 
 // Use the initialState as a default value
@@ -19,6 +20,9 @@ export default function userReducer(state = initialState, { type, payload }) {
       break;
     case ActionType.GET_COURT_OWNER:
       state.listCourtOwner = payload;
+      break;
+    case ActionType.GET_COURT_BOOKING:
+      state.listCourtBooking = payload;
       break;
     default:
       break;
