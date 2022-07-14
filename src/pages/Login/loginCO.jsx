@@ -40,7 +40,7 @@ export default function LoginCO() {
       <div className="d-flex justify-content-center h-100">
         <div className="card">
           <div className="card-header">
-            <h3>Login Your CO Account</h3>
+            <h3>Login Your Account</h3>
           </div>
           <div className="card-body">
             <Formik
