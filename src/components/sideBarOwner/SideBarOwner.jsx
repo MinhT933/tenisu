@@ -24,6 +24,12 @@ export default function SidebarOwner() {
                 Court manager
               </li>
             </Link>
+            <Link to="/owner/booking" className="link">
+              <li className="sidebarListItem">
+                <Storefront className="sidebarIcon" />
+                Booking
+              </li>
+            </Link>
             <Link to="/owner/customer" className="link">
               <li className="sidebarListItem">
                 <Storefront className="sidebarIcon" />

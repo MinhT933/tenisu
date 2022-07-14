@@ -1,21 +1,11 @@
-import React, { useEffect, useState, initialState } from "react";
 import Switch from "@material-ui/core/Switch";
 import { Button } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-// import { notifiSuccess, notifiError } from "../../utils/MyToys";
 import * as yup from "yup";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
 import "./login.css";
-
-async function LoginAcc(username, password, navigate) {
-
-  let data = { username, password };
-  let result = await axios.post("http://www.tennisv2.somee.com/api/v1.0/User/Login", data);
-  console.log("results" + result);
-  navigate("/admin");
-}
+import API from "../../Axios/API";
 
 const signInUserSchema = yup.object().shape({
   // email: yup
@@ -28,15 +18,25 @@ const signInUserSchema = yup.object().shape({
 const label = { inputProps: { "aria-label": "Switch demo" } };
 export default function Login() {
   const navigate = useNavigate();
-  const handleLogIn = async (values, { resetForm }) => {
-    console.log(values);
+  const handleLogInCO = async (values, { resetForm }) => {
     try {
-      if (values.username === "admin") {
+      const res = await API(
+        "POST",
+        "http://www.tennisv2.somee.com/api/v1.0/User/LoginUser",
+        values,
+        null
+      );
+      localStorage.setItem("account", JSON.stringify(values));
+      // console.log(res.data.data[0].roleId);
+      if (res.data.data[0].roleId === "AD") {
         navigate("/admin");
-      } else if (values.username === "owner") {
+      } else if (res.data.data[0].roleId === "OC") {
         navigate("/owner");
-      }
+      } 
+      
+
     } catch (err) {
+      console.log({ ...err });
       // notifiError("Login Fail!");
     }
     resetForm({ values: "" });
@@ -46,7 +46,7 @@ export default function Login() {
       <div className="d-flex justify-content-center h-100">
         <div className="card">
           <div className="card-header">
-            <h3>Login Your Admin Account</h3>
+            <h3>Login Your Account</h3>
           </div>
           <div className="card-body">
             <Formik
@@ -55,7 +55,7 @@ export default function Login() {
                 password: "",
               }}
               validationSchema={signInUserSchema}
-              onSubmit={handleLogIn}
+              onSubmit={handleLogInCO}
               render={(formilProps) => (
                 <Form>
                   <div className="input-group form-group">
@@ -102,21 +102,23 @@ export default function Login() {
                       variant="contained"
                       sx={{ mb: "10px" }}
                       type="submit"
-                      onClick={() => {
-                        LoginAcc(formilProps.values.username, formilProps.values.password, navigate)
-                      }}
+                      // onClick={()=>{
+                      //   LoginAcc(formilProps.values.username,formilProps.values.password,navigate)
+                      // }}
                     >
                       Login
                     </Button>
-                    <Link to={"/loginRoleCO"}>
-                    <Button
-                      sx={{ backgroundColor: "white", color: "black", mb: "10px" }}
-                    >
-                      owner login
-
-                    </Button>
-                    </Link>
-                    
+                    {/* <Link to={"/loginRoleAD"}>
+                      <Button
+                        sx={{
+                          backgroundColor: "white",
+                          color: "black",
+                          mb: "10px",
+                        }}
+                      >
+                        owner login
+                      </Button>
+                    </Link> */}
                   </Box>
                 </Form>
               )}

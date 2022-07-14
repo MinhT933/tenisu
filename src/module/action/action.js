@@ -106,3 +106,24 @@ export const actionCreateCourt = () => {
     }
   };
 };
+
+
+export const apiGetBooking = () => {
+  return async (dispatch) => {
+    try {
+      const email = JSON.parse(localStorage.getItem("account")).username;
+      const res = await API(
+        "GET",
+        `http://www.tennisv2.somee.com/api/v1.0/Bookings/SearchByCour?search=${email}`
+      );
+      dispatch(
+        createAction({
+          type: ActionType.GET_COURT_BOOKING,
+          payload: res.data.data,
+        })
+      );
+    } catch (error) {
+      console.log({ ...error });
+    }
+  };
+};
