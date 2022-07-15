@@ -21,7 +21,7 @@ export default function Topbar() {
           </div>
           <div className="topbarIconContainer">
             
-            <Link to={"/loginRoleCO"}>
+            <Link to={"/"}>
               <Button>
               <ExitToAppIcon />
               </Button>

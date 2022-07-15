@@ -36,6 +36,10 @@ export default function CreateCourt() {
                 <input type="file" id="file" />
               </div>
               <div className="addProductItem">
+                <label>Id Court</label>
+                <input type="text" placeholder="Enter court id..." />
+              </div>
+              <div className="addProductItem">
                 <label>Name Court</label>
                 <input type="text" placeholder="Enter court name..." />
               </div>
